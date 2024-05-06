@@ -4,4 +4,8 @@
  # Using Spring Security for authentication and Authorization.
  - Authentication and Authorization using JWT
 
- #Using Spring JPA,Hibernate for Database communication
+ # For Database:
+ - Using Spring JPA,Hibernate for Database communication
+
+ # Front end can be found here: 
+ https://github.com/Rose-gitungo/Angular-ing/tree/main/Recipe-Book
