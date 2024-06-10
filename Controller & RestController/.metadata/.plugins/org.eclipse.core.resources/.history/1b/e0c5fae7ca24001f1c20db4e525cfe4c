@@ -1,0 +1,10 @@
+spring.application.name=Assessement07-2
+
+spring.mvc.view.prefix=/WEB-INF/
+spring.mvc.view.suffix=.jsp
+
+server.port = 8080
+spring.datasource.url=jdbc:mysql://localhost/assessment07
+spring.datasource.username=root
+spring.datasource.password=root
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver

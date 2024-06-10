@@ -1,0 +1,15 @@
+package com.example.service;
+
+import java.util.List;
+
+import com.example.model.Student;
+
+public interface studentService {
+
+	 List<Student> getAllstudents();
+	
+    String createStudent (Student s);
+	
+	 void updateStudent (Student s);
+	
+}

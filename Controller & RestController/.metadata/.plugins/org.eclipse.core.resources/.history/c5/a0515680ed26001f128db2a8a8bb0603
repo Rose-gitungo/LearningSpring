@@ -1,0 +1,37 @@
+package com.example.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.dao.studentRepo;
+import com.example.model.Student;
+import com.example.service.studentService;
+
+@RestController
+public class MyController {
+ 
+	@Autowired
+	studentService ss;
+	
+	@GetMapping("/students")
+    public String getAllStudents() {
+		System.out.println("The devil wore a tshirt"+studentList);
+	List<Student> studentList = ss.getAllstudents();
+	
+	return "studentList";
+}
+	
+	 @PostMapping("/")
+	    public Student createStudent(@RequestBody Student student) {
+	        return ss.createStudent(student);
+	    }
+	
+	
+}
