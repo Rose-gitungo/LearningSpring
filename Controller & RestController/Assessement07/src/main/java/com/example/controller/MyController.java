@@ -41,8 +41,4 @@ public class MyController {
 	public void deleteStudent(@PathVariable Integer id) {
 		 ss.deleteStudent(id);
 	}
-	
-	
-	
-	
 }
