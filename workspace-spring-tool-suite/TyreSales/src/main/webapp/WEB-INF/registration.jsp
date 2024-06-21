@@ -30,7 +30,7 @@
 
 			<div class="card-body">
 				<div class="container">
-					<form action="./saveTyre" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+					<form id="salesForm" action="./saveTyre" method="post" onsubmit="validateForm(event)">
 						<div class="row mt-3">
 						
 							<input type="hidden" name="salesId" value="${salesId}">
@@ -137,7 +137,9 @@ $(document).ready(function() {
     });
 });
 
-function validateForm() {
+function validateForm(event) {
+	event.preventDefault(event);
+	
     var qty = $("#quantityId").val(); 
     var qtyAvail =$("#QtyAvailId").val();
 
@@ -145,6 +147,29 @@ function validateForm() {
         alert("Quantity available is less than quantity wanted!");
         $("#quantityId").val(""); 
     }
+    
+    var formData={
+    		"salesId":"${salesId}",
+    		"salesDate":"${salesDate}",
+    		"garage":$("#garageNameId").val(),
+    		"tyre":$("#tyreNameId").val(),
+    		"salesQuantity":$("quantityId").val()
+    };
+    
+    $.ajax({
+    	type:'POST',
+    	url:'saveTyre',
+    	contentType:'application/json',
+    	data: formData,
+    	success:function(response){
+    		$("#msg").text("Sales saved Successfully!")
+    	},
+    	error:function(xhr){
+    		$("#msg").text("Error saving sales"+xhr.responseText)
+    	}
+    });
+    
+    
 }
 
 

@@ -12,6 +12,7 @@ public interface SalesDao {
 
 	Integer getQuantityAvailable(Integer tyreId);
 
-	Sales saveTyre(Sales sales);
+	void saveSales(Integer salesId, String salesDate, Integer tyreId, Integer garageId, Integer salesQuantity);
+
 
 }

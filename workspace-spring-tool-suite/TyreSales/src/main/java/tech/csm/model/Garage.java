@@ -16,6 +16,7 @@ public class Garage {
 	@Id
 	@Column(name="garage_id")
 	private Integer garageId;
+	
 	@Column(name="garage_name")
 	private String garageName;
 	

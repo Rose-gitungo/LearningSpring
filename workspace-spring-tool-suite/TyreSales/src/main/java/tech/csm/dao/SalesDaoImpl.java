@@ -12,6 +12,7 @@ import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import tech.csm.model.Garage;
 import tech.csm.model.Sales;
@@ -104,17 +105,9 @@ public class SalesDaoImpl implements SalesDao {
 	}
 
 	@Override
-	public Sales saveTyre(Sales sales) {
-		/*
-		 * String sql="call saveTyre(?,?,?,?,?)"; jdbcTemplate.query(sql, new
-		 * PreparedStatementSetter() {
-		 * 
-		 * @Override public void setValues(PreparedStatement ps) throws SQLException {
-		 * ps.setInt(1);
-		 * 
-		 * }}, null);
-		 */
-		return null;
+	public void saveSales(Integer salesId,String salesDate,Integer tyreId,Integer garageId,Integer salesQuantity) {
+		jdbcTemplate.update("call saveSales(?,?,?,?,?)",salesId,salesDate,garageId,tyreId,salesQuantity);
+	
 	}
 
 }

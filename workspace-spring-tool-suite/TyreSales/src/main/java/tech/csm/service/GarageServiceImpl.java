@@ -15,7 +15,6 @@ public class GarageServiceImpl implements GarageService {
 
 	@Override
 	public List<Garage> getAllGarages() {
-		// TODO Auto-generated method stub
 		return garageDao.getAllGarages();
 	}
 
