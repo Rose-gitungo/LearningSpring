@@ -17,8 +17,8 @@ import tech.csm.Repo.salesSlaveRepo;
 import tech.csm.dto.SalesSummaryDTO;
 import tech.csm.model.itemMaster;
 import tech.csm.model.salesSlave;
-import tech.csm.service.BillingService;
 import tech.csm.service.SalesSlaveService;
+import tech.csm.service.itemMasterService;
 import tech.csm.service.SalesMasterImpl;
 
 @Controller
@@ -31,7 +31,7 @@ public class BillingController {
 	SalesSlaveService salesService;
 	
 	@Autowired
-	BillingService billingService;
+	itemMasterService itemService;
 	
 	@GetMapping("/getBillingPage")
 	public String Billing(Model model) {
@@ -51,13 +51,14 @@ public class BillingController {
             @RequestParam("itemId") Integer itemId,
             @RequestParam("salesQuantity") Integer salesQuantity,
            @RequestParam("dateofSales")  Date dateofSales) {
-		System.out.println(customerName+""+ itemId+""+ salesQuantity);
-		billingService.saveBill(customerName, itemId, salesQuantity,dateofSales);
+		
+		itemService.saveBill(customerName, itemId, salesQuantity,dateofSales);
+		
 		return "redirect:/getBillingPage";
 	}
 	@GetMapping("getAvailableQuantity")
 	public Integer getAvailableQuantity(@RequestParam Integer itemId) {
-		return billingService.findAvailableQuantityById(itemId);
+		return itemService.findAvailableQuantityById(itemId);
 		
 	}
 

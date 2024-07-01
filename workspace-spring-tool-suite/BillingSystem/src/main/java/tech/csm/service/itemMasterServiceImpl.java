@@ -13,8 +13,8 @@ import tech.csm.model.salesMaster;
 import tech.csm.model.salesSlave;
 
 @Service
-public class BillingService {
-
+public class itemMasterServiceImpl implements itemMasterService {
+	
 	@Autowired
 	ItemsRepo itemRepo;
 
@@ -23,10 +23,14 @@ public class BillingService {
 	
 	@Autowired
 	salesSlaveRepo salesSlaveRepo;
-	
-	public void saveBill(String customerName,Integer itemId,Integer salesQuantity,Date dateofSales) {
-		
+
+	@Override
+	public void saveBill(String customerName, Integer itemId, Integer salesQuantity, Date dateofSales) {
 		itemMaster item = itemRepo.findById(itemId).orElse(null);
+		if (item.getQuantity()>0) {
+			item.setQuantity(item.getQuantity()-1);
+			itemRepo.save(item);
+		}
 		
 		salesMaster salesmaster = new salesMaster();
 		salesmaster.setCustomerName(customerName);
@@ -34,17 +38,18 @@ public class BillingService {
 		
 		salesMasterRepo.save(salesmaster);
 		
-		 salesSlave salesSlave = new salesSlave();
+		    salesSlave salesSlave = new salesSlave();
 	        salesSlave.setSalesMaster(salesmaster);
 	        salesSlave.setItemMaster(item);
 	        salesSlave.setSalesQty(salesQuantity);
 	        
 	        salesSlaveRepo.save(salesSlave);
-		
+
 	}
-	   public Integer findAvailableQuantityById(Integer itemId) {
-	        return itemRepo.findAvailableQuantityById(itemId);
-	    }
-	
-	
+
+	@Override
+	public Integer findAvailableQuantityById(Integer itemId) {
+		  return itemRepo.findAvailableQuantityById(itemId);
+	}
+
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import tech.csm.dto.CustomerSumDTO;
 import tech.csm.service.SalesMaster;
 import tech.csm.service.SalesMasterImpl;
+import tech.csm.service.SalesSlaveService;
 
 @Controller
 public class SummaryController {
@@ -20,11 +21,12 @@ public class SummaryController {
 	@Autowired
 	SalesMaster salesMaster;
 	
+	
 	@GetMapping("/getSummaryPage")
 	public String Summary(Model model) {
 		List<CustomerSumDTO> summaries= salesMaster.getCustomerSummary();
+		System.out.println(summaries);
 		 model.addAttribute("summaries", summaries);
-		 System.out.println(summaries);
 		return "summaryPage";
 	}
 	

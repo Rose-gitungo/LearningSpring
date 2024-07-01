@@ -27,7 +27,7 @@
                             <div class="row mt-3">
                                 <div class="col-4">
                                     <label for="" class="font-weight-bold">Customer Name</label> <input type="text"
-                                        class="form-control" name="customerName" id="" value="">
+                                        class="form-control" name="customerName" id="customerName" value="">
                                 </div>
                                 <div class="col-4">
                                     <label for="" class="font-weight-bold">Item
@@ -116,6 +116,31 @@ function checkQuantity() {
             console.error('Error fetching available quantity:', error);
         }
     });
+}
+function validateForm(event) {
+    const customerName = document.getElementById('customerName').value;
+    const itemId = document.getElementById('itemId').value;
+    const salesQuantity = document.getElementById('salesQuantityId').value;
+    const quantityValidationMessage = document.getElementById('quantityValidationMessage');
+
+    quantityValidationMessage.innerHTML = '';
+
+    if (!customerName) {
+        alert('Customer Name is required');
+        event.preventDefault();
+        return false;
+    }
+
+    if (itemId === '0') {
+        alert('Please select an item');
+        event.preventDefault(); 
+        return false;
+    }
+    if (salesQuantity === '') {
+		alert('Sales Quantity is required!');
+		event.preventDefault();
+		return false;
+	}
 }
 
 </script>

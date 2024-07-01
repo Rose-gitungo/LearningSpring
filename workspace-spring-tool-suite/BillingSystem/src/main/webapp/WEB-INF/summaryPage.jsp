@@ -81,18 +81,14 @@
 	    }
 	</script>
 	<script type="text/javascript">
-    // Ensure scripts run after the DOM is fully loaded
     $(document).ready(function() {
         calculateGrandTotal();
     });
 
     function calculateGrandTotal() {
         var grandTotal = 0;
-        // Iterate over each row in the table body
         $('#summaryTableBody tr').each(function() {
-            // Parse the total billed amount from the fourth column of each row
             var totalBilledAmount = parseFloat($(this).find('td:eq(3)').text());
-            // Add to grand total if it's a valid number
             if (!isNaN(totalBilledAmount)) {
                 grandTotal += totalBilledAmount;
                 console.log("totalBilledAmount"+totalBilledAmount)

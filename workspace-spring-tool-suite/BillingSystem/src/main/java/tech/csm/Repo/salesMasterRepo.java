@@ -8,24 +8,26 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import tech.csm.dto.CustomerSumDTO;
 import tech.csm.model.salesMaster;
 
 @Repository
 public interface salesMasterRepo extends JpaRepository<salesMaster, Integer> {
 
-	 @Query("SELECT s.salesMaster.customerName AS customerName, "
-	            + "SUM(s.salesQty) AS totalItemsPurchased, "
-	            + "SUM(s.salesQty * s.itemMaster.unitPrice) AS totalBilledAmount "
-	            + "FROM salesSlave s "
-	            + "GROUP BY s.salesMaster.customerName")
-	    List<Object[]> fetchCustomerSummary();
+	 @Query("SELECT new tech.csm.dto.CustomerSumDTO(sm.customerName, SUM(ss.salesQty), SUM(ss.salesQty * im.unitPrice)) " +
+	           "FROM salesMaster sm " +
+	           "JOIN sm.salesSlaves ss " +
+	           "JOIN ss.itemMaster im " +
+	           "GROUP BY sm.customerName")
+	 List<CustomerSumDTO> fetchCustomerSummary();
 	    
 	    
-	    @Query("SELECT s.salesMaster.customerName AS customerName, "
-	            + "SUM(s.salesQty) AS totalItemsPurchased, "
-	            + "SUM(s.salesQty * s.itemMaster.unitPrice) AS totalBilledAmount "
-	            + "FROM salesSlave s "
-	            + "WHERE DATE(s.salesMaster.dateofSales) = :selectedDate "
-	            + "GROUP BY s.salesMaster.customerName")
-	    List<Object[]> fetchCustomerSummaryByDate(@Param("selectedDate") LocalDate selectedDate);
+//	    @Query("SELECT  tech.csm.dto.CustomerSumDTO(s.salesMaster.customerName AS customerName, "
+//	            + "SUM(s.salesQty) AS totalItemsPurchased, "
+//	            + "SUM(s.salesQty * s.itemMaster.unitPrice) AS totalBilledAmount) "
+//	            + "FROM salesSlave s "
+//	            + "WHERE DATE(s.salesMaster.dateofSales) = :selectedDate "
+//	            + "GROUP BY s.salesMaster.customerName")
+	@Query("from salesMaster")
+	    List<CustomerSumDTO> fetchCustomerSummaryByDate(@Param("selectedDate") LocalDate selectedDate);
 }
